@@ -1,5 +1,4 @@
 function saveStudentDetails(student) {
-    //localStorage.clear();
     let studentArray = [];
     let storedStudentDetails = localStorage.getItem('studentDetails');
     if (storedStudentDetails == null) {
@@ -50,36 +49,36 @@ function displayStudentDetails() {
     $(".edit-btn").click(function () {
         $("#save").hide();
         $("#update").show();
-        //$("update").show();
+        
         // Get the parent <tr> element of the clicked edit 
         let row = $(this).closest("tr");
 
         let name = row.find('td:eq(0)').text(); // Get name from first column
         //console.log(row.find('td:eq(0)').text());
         let age = row.find('td:eq(1)').text(); // Get age from second colum
-        let email = row.find('td:eq(2)').text(); // Get email from second colum
+        let email = row.find('td:eq(2)').text(); // Get email from third colum
 
 
-        // Prompt for new name and age
-        $("#name").val(name); //row.find('td:eq(0)').html("<input name='edit_name' value='" + name + "'>");
+        // set new name, age, email in the input box
+        $("#name").val(name);
         $("#age").val(age);
         $("#email").val(email);
+        // Get index of edited row
         let index = row.index();
-        $("#update").attr('data-index', index);
-        //let update = row.find('td:eq(3)').html("<button class='update-btn'>update</button>");
-        //If user cancels editing or enters empty values, return
-     });
 
-     $("#update").click(function(){
+        $("#update").attr('data-index', index);
+    });
+
+    $("#update").click(function () {
         $("#save").show();
-        //$("#update").hide();
         let index = $(this).attr('data-index'); // Retrieve the index from the button's data attribute
         console.log('Index passed to outside button action:', index);
         let row = $('#tabledata tr').eq(index);
         console.log(row);
         let newName = $("#name").val();
         let newAge = $("#age").val();
-        let newEmail= $("#email").val();
+        let newEmail = $("#email").val();
+
         // Parse new age as a number
         newAge = parseInt(newAge);
 
@@ -91,8 +90,8 @@ function displayStudentDetails() {
                     row.find('td:eq(1)').text(newAge);
                     row.find('td:eq(2)').text(newEmail);
 
-                    // Get index of edited row
-                   
+
+
 
                     // Retrieve existing data from local storage
                     let studentDetails = JSON.parse(localStorage.getItem('studentDetails')) || [];
@@ -114,7 +113,7 @@ function displayStudentDetails() {
         else {
             alert("enter valid name")
         }
-     });
+    });
 
     // Attach click event handler to delete buttons
     $(".delete-btn").click(function () {
